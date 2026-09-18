@@ -1,0 +1,9 @@
+node_modules
+package-lock.json
+dist
+**/.env
+**/tempCodeRunnerFile.*
+.vscode
+.env
+instructions
+.puku
