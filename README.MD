@@ -171,11 +171,10 @@ The primary public endpoint for the judge harness is the Vercel deployment of th
 
 ### 4.1 What the judge should hit
 
-| Endpoint     | Method | URL                                             |
-| ------------ | ------ | ----------------------------------------------- |
+| Endpoint     | Method | URL                                               |
+| ------------ | ------ | ------------------------------------------------- |
 | Health probe | `GET`  | `https://hackathonbup.vercel.app/health`          |
 | Optimization | `POST` | `https://hackathonbup.vercel.app/optimize-energy` |
-
 
 ```bash
 # Health check
@@ -224,8 +223,7 @@ After deployment, verify in order:
 When packaging the submission, list:
 
 - **Primary endpoint:** `https://hackathonbup.vercel.app` (this Vercel URL is the live judging target).
-- **Fallback Docker image:** `yourname/gridwise-llm:vX.Y.Z` (see §13) — used by organizers if the Vercel endpoint is
-  unavailable.
+- **Fallback Docker image:** TODO
 - **Repository:** the GitHub repo, public after the submission deadline.
 
 ---
@@ -489,9 +487,7 @@ Expected response shape (abridged):
             "explanation": "..."
         }
     ],
-    "hourly_plan": [
-        /* 24 entries */
-    ],
+    "hourly_plan": [/* 24 entries */],
     "total_grid_kwh": 1234.567,
     "total_cost_bdt": 9876.543,
     "peak_grid_kwh": 300.0,
@@ -532,10 +528,9 @@ Equivalent optimal schedules are accepted; you should not byte-match a reference
 
 ---
 
-## 13. Docker fallback image 
-// TODO 
-.
+## 13. Docker fallback image
 
+// TODO .
 
 ---
 
