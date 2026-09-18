@@ -173,18 +173,17 @@ The primary public endpoint for the judge harness is the Vercel deployment of th
 
 | Endpoint     | Method | URL                                             |
 | ------------ | ------ | ----------------------------------------------- |
-| Health probe | `GET`  | `https://VERCEL_DEPLOYMENT_URL/health`          |
-| Optimization | `POST` | `https://VERCEL_DEPLOYMENT_URL/optimize-energy` |
+| Health probe | `GET`  | `https://hackathonbup.vercel.app/health`          |
+| Optimization | `POST` | `https://hackathonbup.vercel.app/optimize-energy` |
 
-Replace `VERCEL_DEPLOYMENT_URL` anywhere it appears with the real Vercel domain. Example with the placeholder filled in:
 
 ```bash
 # Health check
-curl -s https://gridwise-llm.vercel.app/health
+curl -s https://hackathonbup.vercel.app/health
 # => {"status":"ok"}
 
 # Optimization request
-curl -s -X POST https://gridwise-llm.vercel.app/optimize-energy \
+curl -s -X POST https://hackathonbup.vercel.app/optimize-energy \
   -H 'Content-Type: application/json' \
   -d @sample-request.json
 ```
@@ -224,7 +223,7 @@ After deployment, verify in order:
 
 When packaging the submission, list:
 
-- **Primary endpoint:** `https://VERCEL_DEPLOYMENT_URL` (this Vercel URL is the live judging target).
+- **Primary endpoint:** `https://hackathonbup.vercel.app` (this Vercel URL is the live judging target).
 - **Fallback Docker image:** `yourname/gridwise-llm:vX.Y.Z` (see §13) — used by organizers if the Vercel endpoint is
   unavailable.
 - **Repository:** the GitHub repo, public after the submission deadline.
