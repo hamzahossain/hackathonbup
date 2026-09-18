@@ -532,64 +532,10 @@ Equivalent optimal schedules are accepted; you should not byte-match a reference
 
 ---
 
-## 13. Docker fallback image (organizer path)
+## 13. Docker fallback image 
+// TODO 
+.
 
-Provide a registry image (Docker Hub / GHCR) with an exact tag or digest. The image must:
-
-- `EXPOSE 8000` and bind `0.0.0.0`.
-- **Not** contain any baked-in secrets (no `GEMINI_API_KEY` inside the image — pass via `--env-file`).
-- Become ready (`GET /health → {"status":"ok"}`) within 60 seconds of `docker run`.
-
-A production-ready multi-stage `Dockerfile` is included in the repo. It:
-
-1. Builds TypeScript in a `node:20-alpine` builder stage.
-2. Prunes dev dependencies so the runtime image carries only `dependencies/`.
-3. Drops privileges to a non-root user (`gridwise`).
-4. Declares a `HEALTHCHECK` that hits `GET /health` every 30 s.
-
-### 12.1 Build the image locally
-
-```bash
-# From the repo root
-docker build -t gridwise-llm:local .
-
-# Sanity check — should print {"status":"ok"} within ~5s
-docker run --rm -p 8000:8000 --env-file .env gridwise-llm:local
-curl -s http://localhost:8000/health
-```
-
-### 12.2 Publish a registry fallback (Docker Hub / GHCR)
-
-```bash
-# Tag and push (replace yourname/yourrepo and the tag with your real values)
-docker tag gridwise-llm:local yourname/gridwise-llm:v1.0.0
-docker push yourname/gridwise-llm:v1.0.0
-```
-
-Submit the exact reference the organizers can pull (e.g. `docker.io/yourname/gridwise-llm:v1.0.0`) along with the run
-command below.
-
-### 12.3 Run from the published image
-
-```bash
-# 1. Create a local .env (NEVER commit it) with your real key:
-cat > .env <<'EOF'
-GEMINI_API_KEY=your_real_key_here
-GEMINI_MODEL=gemini-3.5-flash-lite
-PORT=8000
-EOF
-
-# 2. Pull and run
-docker pull yourname/gridwise-llm:v1.0.0
-docker run --rm -p 8000:8000 --env-file .env --name gridwise yourname/gridwise-llm:v1.0.0
-
-# 3. Verify
-curl -s http://localhost:8000/health
-# => {"status":"ok"}
-```
-
-The image stays reachable across repeated LLM-backed requests for the whole judging window. Restart with the same
-command if the host reboots.
 
 ---
 
